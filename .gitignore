@@ -43,3 +43,7 @@
 # clion ide
 *.idea
 CMakeLists.txt
+
+# builds
+build/
+build*
