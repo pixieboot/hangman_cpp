@@ -15,7 +15,7 @@ std::vector<std::string_view> words{
     "modem",     "satellite", "network",    "clock",    "vitamin",   "remote",
     "glass",     "box",       "camera",     "bottle",   "weight",    "tower",
     "interface", "building",  "pillow",     "frame",    "paint",     "piano",
-    "pecil",     "fish",      "tool",       "bracelet", "clouds",    "table"};
+    "pencil",    "fish",      "tool",       "bracelet", "clouds",    "table"};
 
 /**
  * Randomizes which word will be picked from the array of words,
@@ -122,9 +122,12 @@ void updateGameState(Session &gameVars, char c) {
         }
         gameVars.guesses[gameVars.guesses.size() - 1] = c;
         gameVars.attempts--;
+        std::cout << "No, '" << c << "' is not in the word!\n";
     } else {
         gameVars.lastInput = c;
+        std::cout << "Yes, '" << c << "' is in the word!\n";
     }
+    std::cout << "--------------------------\n";
 }
 
 /**
@@ -154,9 +157,10 @@ void inputChecker() {
  * @return: bool; returns true if the player has pressed 'n', else false to
  * continue game loop
  */
-bool endGameState(bool isGameOver) {
+bool endGameState(const Session &gameVars, bool isGameOver) {
     if (isGameOver == true) {
         std::cout << "\nGame over! All attempts have been used.\n";
+        std::cout << "The word was: '" << gameVars.getWord() << "'\n";
     } else {
         std::cout << "\nCongratulations, you won!\n";
     }
@@ -212,7 +216,7 @@ bool gameState(Session &gameVars) {
 
     while (true) {
         if (gameVars.attempts < 0) {
-            if (endGameState(true)) {
+            if (endGameState(gameVars, true)) {
                 return true;
             } else
                 return false;
@@ -233,7 +237,7 @@ bool gameState(Session &gameVars) {
         }
 
         if (checkGuessedLetters(gameVars)) {
-            if (endGameState(false)) {
+            if (endGameState(gameVars, false)) {
                 return true;
             }
             return false;
