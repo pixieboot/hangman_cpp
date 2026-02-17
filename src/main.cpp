@@ -1,5 +1,6 @@
 #include "random.h"
 #include <algorithm>
+#include <cstdlib>
 #include <iostream>
 
 namespace WordList {
@@ -73,6 +74,21 @@ bool checkIfWordArrIsEmpty() {
     return false;
 }
 
+/*
+ * Clears console, changes depending on the OS
+ *
+ * @param: none;
+ * @return: none;
+ */
+void clear_screen() {
+#ifdef WINDOWS
+    std::system("cls");
+#else
+    // Assume POSIX
+    std::system("clear");
+#endif
+}
+
 /**
  * Sets the welcoming text on game start, iterates through
  * arrays to display current word as '_' and guesses as '+'
@@ -108,6 +124,7 @@ void updateGameState(Session &gameVars, char c) {
         }
         if (c == gameVars.lastInput) {
             std::cout << "You already guessed that. Try again.\n";
+            gameVars.match = true;
             break;
         }
         if (c == gameVars.getWord()[i]) {
@@ -122,10 +139,10 @@ void updateGameState(Session &gameVars, char c) {
         }
         gameVars.guesses[gameVars.guesses.size() - 1] = c;
         gameVars.attempts--;
-        std::cout << "No, '" << c << "' is not in the word!\n";
+        std::cout << "\nNo, '" << c << "' is not in the word!\n";
     } else {
         gameVars.lastInput = c;
-        std::cout << "Yes, '" << c << "' is in the word!\n";
+        std::cout << "\nYes, '" << c << "' is in the word!\n";
     }
     std::cout << "--------------------------\n";
 }
@@ -208,6 +225,8 @@ bool checkGuessedLetters(const Session &gameVars) {
  * endless loop
  */
 bool gameState(Session &gameVars) {
+    clear_screen();
+
     if (checkIfWordArrIsEmpty()) {
         return false;
     };
