@@ -74,7 +74,7 @@ bool checkIfWordArrIsEmpty() {
  * @return: none
  */
 void setGameStartText(Session &gameVars) {
-    std::cout << "Welcome to the C++man (a varian of Hangman)\n"
+    std::cout << "Welcome to the C++man (a variant of Hangman)\n"
               << "To win: guess the word. To lose: run out of pluses.\n\n";
 
     for ([[maybe_unused]] const auto &x : gameVars.getWord()) {
@@ -106,7 +106,6 @@ void updateGameState(Session &gameVars, char c) {
         if (c == gameVars.getWord()[i]) {
             gameVars.temp[i] = c;
             gameVars.match = true;
-            gameVars.lastInput = c;
         }
     }
 
@@ -116,6 +115,8 @@ void updateGameState(Session &gameVars, char c) {
         }
         gameVars.guesses[gameVars.guesses.size() - 1] = c;
         gameVars.attempts--;
+    } else {
+        gameVars.lastInput = c;
     }
 }
 
