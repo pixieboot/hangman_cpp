@@ -6,9 +6,16 @@ namespace WordList {
 /**
  * Vector of words, words can be added or deleted as desired.
  */
-std::vector<std::string_view> words{"mystery", "broccoli",  "account",
-                                    "almost",  "spaghetti", "opinion",
-                                    "moon",    "something", "galaxy"};
+std::vector<std::string_view> words{
+    "mystery",   "broccoli",  "account",    "almost",   "spaghetti", "opinion",
+    "moon",      "something", "galaxy",     "sun",      "country",   "earth",
+    "space",     "keyboard",  "microphone", "car",      "truck",     "tank",
+    "garbage",   "laptop",    "grass",      "flower",   "farm",      "sheep",
+    "cube",      "game",      "chicken",    "rabbit",   "star",      "router",
+    "modem",     "satellite", "network",    "clock",    "vitamin",   "remote",
+    "glass",     "box",       "camera",     "bottle",   "weight",    "tower",
+    "interface", "building",  "pillow",     "frame",    "paint",     "piano",
+    "pecil",     "fish",      "tool",       "bracelet", "clouds",    "table"};
 
 /**
  * Randomizes which word will be picked from the array of words,
